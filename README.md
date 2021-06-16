@@ -61,7 +61,7 @@ Global Arguments
 
 ## Scenario1: AKS in the different VNet
 
-**Insert diagram**
+![image](scenario1aks.png)
 
 ### Configurations
 I assume you have an AzureML workspace with single PE.
@@ -74,7 +74,7 @@ NA
 
 ## Scenario2: Access from the different VNet
 
-**Insert diagram**
+![image](scenario2client.png)
 
 ### Worklaod VNet Configurations
 1. Allow inbound access from service tag "azuremachinelearning" and "batchnodemanagement". [Doc](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-secure-training-vnet#mlcports)
