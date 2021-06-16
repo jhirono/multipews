@@ -1,16 +1,19 @@
 # Azure ML multiple private endpoints support (private preview)
 
-## Supported Sceanrios as private preview
+## Enable Your Subscriptions for Private Preview
+Submit this [form](https://forms.office.com/r/dcVvterjb3).
+
+## Supported Scenarios as private preview
 * AKS in the different VNet
 * Access from the different VNet
 
 ## Current Limitation
-- Azure portal does not support more than 2 PE creation. Please use CLI command to create 2nd PE.
-- Azure ML recognizes your first PE for workspace as the default PE. The only VNet of the default PE is shown in the compute creation. You cannot choose the another vnet associated with your 2nd PE cannot be chosen on studio UX. If you want to create compute in 2nd VNet, please use ARM template.
+- Azure portal does not support more than 2 PE creations. Please use CLI command to create 2nd PE.
+- Azure ML recognizes your first PE for workspace as the default PE. The only VNet of the default PE is shown in the compute creation in AML Studio UX. You cannot choose another vnet associated with your 2nd PE on studio UX. Please create your first PE that is associated with the VNet you want to create compute resources. If you want to create compute in 2nd VNet, please use ARM template.
 
 ## How to Create 2nd PE for AzureML Workspace
 
-Please use this cli command to add PE for your workspace. [Doc](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-configure-private-link?tabs=azure-cli#add-a-private-endpoint-to-a-workspace)
+Please use this CLI command to add PE to your workspace. [Doc](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-configure-private-link?tabs=azure-cli#add-a-private-endpoint-to-a-workspace)
 
 ```json
 Command
@@ -84,13 +87,13 @@ NA
 
 ### Workspace Managed Identity Configurations [Doc](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-enable-studio-virtual-network)
 1. Reader access to the PE of storages
-  * For default blob storage, reader access to the PEs(both blob and file) in Client VNet
-  * For additionally attached storage, reader access to the PE in Client VNet.
+  * For the default blob storage, reader access to the PEs(both blob and file) in Client VNet.
+  * For the additionally attached storage, reader access to the PE in Client VNet.
 2. Blob contributor access of the default storage and additionally attached storage
-3. Managed Idnetity configuration on Studio UX for the addtionally attached storage
+3. Managed Idnetity configuration on Studio UX for the additionally attached storage
 
 ### Known Issues
-* Please create a AzureML workpsace PE for Workload VNet to choose workload vnet information on AzureML studio UX.
+* Please create an AzureML workpsace PE for Workload VNet to choose workload vnet information on AzureML studio UX.
   * If you want to create compute in Client VNet, please use following templates. [Compute Instance](https://github.com/Azure/azure-quickstart-templates/tree/master/quickstarts/microsoft.machinelearningservices/machine-learning-compute-create-computeinstance), [Compute Cluster](https://github.com/Azure/azure-quickstart-templates/tree/master/quickstarts/microsoft.machinelearningservices/machine-learning-compute-create-amlcompute), [AKS](https://github.com/Azure/azure-quickstart-templates/tree/master/quickstarts/microsoft.machinelearningservices/machine-learning-compute-create-akscompute).
 * Notebook on Studio UX can be used only from the 2nd PE's VNet, in this case, Client VNet. This is a bug to be fixed.
-* Multiple PE creations overwrite your original DNS A record in private end zones.
+* Multiple PE creations with the same private DNS zones overwrite your original DNS A record in private end zones. In that case, please update your A records in your private DNS zones.
