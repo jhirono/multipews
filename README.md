@@ -10,6 +10,7 @@ Submit this [form](https://forms.office.com/r/dcVvterjb3).
 ## Current Limitation
 - Azure portal does not support more than 2 PE creations. Please use CLI command to create 2nd PE.
 - Azure ML recognizes your first PE for workspace as the default PE. The only VNet of the default PE is shown in the compute creation in AML Studio UX. You cannot choose another vnet associated with your 2nd PE on studio UX. Please create your first PE that is associated with the VNet you want to create compute resources. If you want to create compute in 2nd VNet, please use ARM template.
+- Notebook on Studio UX can be used only from the 2nd PE's VNet. This is a bug to be fixed.
 
 ## How to Create 2nd PE for AzureML Workspace
 
@@ -58,7 +59,7 @@ Global Arguments
     --verbose                 : Increase logging verbosity. Use --debug for full debug logs.
 ```
 
-## AKS in the different VNet
+## Scenario1: AKS in the different VNet
 
 **Insert diagram**
 
@@ -71,7 +72,7 @@ I assume you have an AzureML workspace with single PE.
 ### Known Issues
 NA
 
-## Access from the different VNet
+## Scenario2: Access from the different VNet
 
 **Insert diagram**
 
