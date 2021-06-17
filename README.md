@@ -7,9 +7,9 @@ Submit this [form](https://forms.office.com/r/dcVvterjb3).
 * AKS in the different VNet
 * Access from the different VNet
 
-## Current Limitation
+## Current Limitations will be fixed by Public Preview
 - Azure portal does not support more than 2 PE creations. Please use CLI command to create 2nd PE.
-- Current CLI command overwrites the DNS A record for your first PE in your private DNS zone. Add the IP of your first PE in the A record in your private DNS zone.
+- The CLI command overwrites the DNS A record for your first PE in your private DNS zone. Add the IP of your first PE in the A record in your private DNS zone.
 - Azure ML recognizes your first PE for workspace as the default PE. The only VNet of the default PE is shown in the compute creation in AML Studio UX. You cannot choose another vnet associated with your 2nd PE on studio UX. Please create your first PE that is associated with the VNet you want to create compute resources. If you want to create compute in 2nd VNet, please use ARM template.
 - Notebook on Studio UX can be used only from the 2nd PE's VNet. This is a bug to be fixed.
 
