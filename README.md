@@ -9,12 +9,13 @@ Submit this [form](https://forms.office.com/r/dcVvterjb3).
 
 ## Current Limitation
 - Azure portal does not support more than 2 PE creations. Please use CLI command to create 2nd PE.
+- Current CLI command overwrites the DNS A record for your first PE in your private DNS zone. Add the IP of your first PE in the A record in your private DNS zone.
 - Azure ML recognizes your first PE for workspace as the default PE. The only VNet of the default PE is shown in the compute creation in AML Studio UX. You cannot choose another vnet associated with your 2nd PE on studio UX. Please create your first PE that is associated with the VNet you want to create compute resources. If you want to create compute in 2nd VNet, please use ARM template.
 - Notebook on Studio UX can be used only from the 2nd PE's VNet. This is a bug to be fixed.
 
 ## How to Create 2nd PE for AzureML Workspace
 
-Please use this CLI command to add PE to your workspace. [Doc](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-configure-private-link?tabs=azure-cli#add-a-private-endpoint-to-a-workspace)
+1. Use this CLI command to add PE to your workspace. [Doc](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-configure-private-link?tabs=azure-cli#add-a-private-endpoint-to-a-workspace)
 
 ```json
 Command
@@ -45,19 +46,9 @@ Arguments
     --subscription-id         : Specifies the subscription Id.
     --tags                    : Tags associated with this private endpoint with 'key=value' syntax.
     --workspace-name -w       : Workspace name.
-
-Global Arguments
-    --debug                   : Increase logging verbosity to show all debug logs.
-    --help -h                 : Show this help message and exit.
-    --only-show-errors        : Only show errors, suppressing warnings.
-    --output -o               : Output format.  Allowed values: json, jsonc, none, table, tsv, yaml,
-                                yamlc.  Default: json.
-    --query                   : JMESPath query string. See http://jmespath.org/ for more information
-                                and examples.
-    --subscription            : Name or ID of subscription. You can configure the default
-                                subscription using `az account set -s NAME_OR_ID`.
-    --verbose                 : Increase logging verbosity. Use --debug for full debug logs.
 ```
+2. Add the private IP of your first PE in the A record in your private dns zone.
+![image](privatednszone.png)
 
 ## Scenario1: AKS in the different VNet
 
