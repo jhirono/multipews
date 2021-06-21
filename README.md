@@ -15,6 +15,8 @@ Submit this [form](https://forms.office.com/r/dcVvterjb3).
 
 ## How to Create 2nd PE for AzureML Workspace
 
+This command is supported by Azure ML CLI V1. Please use the latest version of Azure ML CLI V1, which is currently 1.29.0. [Doc](https://docs.microsoft.com/en-us/azure/machine-learning/reference-azure-machine-learning-cli)
+
 1. Use this CLI command to add PE to your workspace. [Doc](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-configure-private-link?tabs=azure-cli#add-a-private-endpoint-to-a-workspace)
 
 ```json
