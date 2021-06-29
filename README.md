@@ -9,7 +9,6 @@ Submit this [form](https://forms.office.com/r/dcVvterjb3).
 
 ## Current Limitations will be fixed by Public Preview
 - Azure portal does not support more than 2 PE creations. Please use CLI command to create 2nd PE.
-- The CLI command overwrites the DNS A record for your first PE in your private DNS zone. Add the IP of your first PE in the A record in your private DNS zone.
 - Azure ML recognizes your first PE for workspace as the default PE. The only VNet of the default PE is shown in the compute creation in AML Studio UX. You cannot choose another vnet associated with your 2nd PE on studio UX. Please create your first PE that is associated with the VNet you want to create compute resources. If you want to create compute in 2nd VNet, please use ARM template.
 - Notebook on Studio UX can be used only from the 2nd PE's VNet. This is a bug to be fixed.
 
@@ -49,8 +48,9 @@ Arguments
     --tags                    : Tags associated with this private endpoint with 'key=value' syntax.
     --workspace-name -w       : Workspace name.
 ```
-2. Add the private IP of your first PE in the A record in your private dns zone.
-Below are the example screenshots. You should have the IP of 2nd PE in the A record for AzureML workspace. You need to add the IP of 1st PE in the A record again that is highlighted by yellow. Note that your IP should be different. 
+2. We do not recommend using the same private dns zone for your more than two virtual networks. 
+
+If you use the same private dns zone for multiple virtual networks, the CLI command overwrites the DNS A record for your first PE in your private DNS zone. Add the IP of your first PE in the A record in your private DNS zone.Add the private IP of your first PE in the A record in your private dns zone. Below are the example screenshots. You should have the IP of 2nd PE in the A record for AzureML workspace. You need to add the IP of 1st PE in the A record again that is highlighted by yellow. Note that your IP should be different. 
 ![image](privatednszone1.png)
 ![image](privatednszone2.png)
 
@@ -65,7 +65,7 @@ I assume you have an AzureML workspace with single PE.
 3. Attach your AKS to AzureML workpsace [Doc](https://docs.microsoft.com/en-us/azure/machine-learning/how-to-create-attach-kubernetes?tabs=azure-cli#attach-an-existing-aks-cluster) or on Studio UX. Use [AKS ARM template](https://github.com/Azure/azure-quickstart-templates/tree/master/quickstarts/microsoft.machinelearningservices/machine-learning-compute-create-akscompute) if you want to create a new AKS clsuter.
 
 ### Known Issues
-- Your A record for AzureML workspace in private dns zone will be overwritten by 2nd PE creation. Do Action 2 of [this section](#how-to-create-2nd-pe-for-azureml-workspace).
+- If you use the same private dns zone for multiple virtual networks, your A record for AzureML workspace in private dns zone will be overwritten by 2nd PE creation. Do Action 2 of [this section](#how-to-create-2nd-pe-for-azureml-workspace).
 - Multiple PE creation for associated resources might overwrite your A record in your private dns zone. Modifty A record in your private dns zone accordingly.
 - Notebook on Studio UX can be used only from the 2nd PE's VNet, in this case, AKS VNet. This is a bug to be fixed.
 - You cannot choose the 2nd VNet on Studio UX(known issue).
@@ -92,7 +92,7 @@ I assume you have an AzureML workspace with single PE.
 3. Managed Idnetity configuration on Studio UX for the additionally attached storage
 
 ### Known Issues
-* Your A record for AzureML workspace in private dns zone will be overwritten by 2nd PE creation. Do Action 2 of [this section](#how-to-create-2nd-pe-for-azureml-workspace).
+* If you use the same private dns zone for multiple virtual networks, your A record for AzureML workspace in private dns zone will be overwritten by 2nd PE creation. Do Action 2 of [this section](#how-to-create-2nd-pe-for-azureml-workspace).
 * Multiple PE creation for associated resources might overwrite your A record in your private dns zone. Modifty A record in your private dns zone accordingly.
 * Create an AzureML workpsace PE for Workload VNet to choose workload vnet information on AzureML studio UX.
   * If you want to create compute in Client VNet, please use following templates. [Compute Instance](https://github.com/Azure/azure-quickstart-templates/tree/master/quickstarts/microsoft.machinelearningservices/machine-learning-compute-create-computeinstance), [Compute Cluster](https://github.com/Azure/azure-quickstart-templates/tree/master/quickstarts/microsoft.machinelearningservices/machine-learning-compute-create-amlcompute), [AKS](https://github.com/Azure/azure-quickstart-templates/tree/master/quickstarts/microsoft.machinelearningservices/machine-learning-compute-create-akscompute).
