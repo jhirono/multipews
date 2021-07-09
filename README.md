@@ -10,7 +10,6 @@ Submit this [form](https://forms.office.com/r/dcVvterjb3).
 ## Current Limitations will be fixed by Public Preview
 - Azure portal does not support more than 2 PE creations. Please use CLI command to create 2nd PE.
 - Azure ML recognizes your first PE for workspace as the default PE. The only VNet of the default PE is shown in the compute creation in AML Studio UX. You cannot choose another vnet associated with your 2nd PE on studio UX. Please create your first PE that is associated with the VNet you want to create compute resources. If you want to create compute in 2nd VNet, please use ARM template.
-- Notebook on Studio UX can be used only from the 2nd PE's VNet. This is a bug to be fixed.
 
 ## How to Create 2nd PE for AzureML Workspace
 
@@ -67,7 +66,6 @@ I assume you have an AzureML workspace with single PE.
 ### Known Issues
 - If you use the same private dns zone for multiple virtual networks, your A record for AzureML workspace in private dns zone will be overwritten by 2nd PE creation. Do Action 2 of [this section](#how-to-create-2nd-pe-for-azureml-workspace).
 - Multiple PE creation for associated resources might overwrite your A record in your private dns zone. Modifty A record in your private dns zone accordingly.
-- Notebook on Studio UX can be used only from the 2nd PE's VNet, in this case, AKS VNet. This is a bug to be fixed.
 - You cannot choose the 2nd VNet on Studio UX(known issue).
 
 ## Scenario2: Access from the different VNet
@@ -96,5 +94,4 @@ I assume you have an AzureML workspace with single PE.
 * Multiple PE creation for associated resources might overwrite your A record in your private dns zone. Modifty A record in your private dns zone accordingly.
 * Create an AzureML workpsace PE for Workload VNet to choose workload vnet information on AzureML studio UX.
   * If you want to create compute in Client VNet, please use following templates. [Compute Instance](https://github.com/Azure/azure-quickstart-templates/tree/master/quickstarts/microsoft.machinelearningservices/machine-learning-compute-create-computeinstance), [Compute Cluster](https://github.com/Azure/azure-quickstart-templates/tree/master/quickstarts/microsoft.machinelearningservices/machine-learning-compute-create-amlcompute), [AKS](https://github.com/Azure/azure-quickstart-templates/tree/master/quickstarts/microsoft.machinelearningservices/machine-learning-compute-create-akscompute).
-* Notebook on Studio UX can be used only from the 2nd PE's VNet, in this case, Client VNet. This is a bug to be fixed.
 
